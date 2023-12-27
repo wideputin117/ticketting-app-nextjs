@@ -25,7 +25,7 @@ const Header = () => {
              <div className="flex w-32 justify-center gap-3 ">
                  <SignedIn>        {/* this will render a signed button if log out it will take back to home page */}
                     <UserButton afterSignOutUrl="/" />
-                    <MobileNav />
+                    <MobileNav />  {/* Component for mobile view */}
                  </SignedIn>
                  
                  <SignedOut>        {/* this is signing and signup button */}

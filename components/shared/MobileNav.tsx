@@ -6,11 +6,12 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-  } from "@/components/ui/sheet";
-  import { Separator } from "@/components/ui/separator";
+  } from "@/components/ui/sheet";    // shadcn ui components
+
+  import { Separator } from "@/components/ui/separator";  // a line component to display a break line
 
   import Image from "next/image";
-import NavItems from "./NavItems";
+  import NavItems from "./NavItems";
 
 
 const MobileNav = () => {

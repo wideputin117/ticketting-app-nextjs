@@ -12,7 +12,7 @@ const pathname = usePathname();
   return (
      <ul className="md:flex-between flex w-full flex-col items-start gap-5 md:flex-row">
         {headerLinks.map((link)=>{
-            const isActive = pathname === link.route;
+            const isActive = pathname === link.route; // keeps track of current page and makes it active
             return(
                 <li key={link.route}
                 className={`${
