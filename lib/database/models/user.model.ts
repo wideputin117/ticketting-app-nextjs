@@ -1,6 +1,6 @@
 // contains schema model for the user creation
 
-import mongoose, { Schema, model, models } from "mongoose";
+import  {Schema, model, models } from "mongoose";
 import { unique } from "next/dist/build/utils";
 import { STRING_LITERAL_DROP_BUNDLE } from "next/dist/shared/lib/constants";
 
