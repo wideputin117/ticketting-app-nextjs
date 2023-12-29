@@ -1,4 +1,4 @@
-// utility function to use throughout the applicati
+// utility function to use throughout the application 
 
 import { type ClassValue, clsx } from 'clsx'
 

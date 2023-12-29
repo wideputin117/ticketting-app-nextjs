@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       photo: image_url,
     }
 
-    const newUser = await createUser(user);
+    const newUser = await createUser(user); // this function will create the user in the database
 
     if(newUser) {
       await clerkClient.users.updateUserMetadata(id, {
