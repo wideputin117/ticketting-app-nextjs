@@ -1,4 +1,4 @@
-
+'use server'
 
 // this is all used for user management and updation and deletion 
 
