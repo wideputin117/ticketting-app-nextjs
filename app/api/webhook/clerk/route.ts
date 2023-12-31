@@ -67,7 +67,7 @@ export async function POST(req: Request) {
     }
 
     const newUser = await createUser(user); // this function will create the user in the database from the data coming from the evt.data;
-
+    console.log(newUser);
     /*if(newUser) {
       await clerkClient.users.updateUserMetadata(id, {
         publicMetadata: {
