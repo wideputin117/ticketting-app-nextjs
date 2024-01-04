@@ -12,6 +12,8 @@ export const headerLinks = [
       route: '/profile',
     },
   ]
+
+  // default event values for form
    export const eventDefaultValues = {
     title: '',
     description: '',
