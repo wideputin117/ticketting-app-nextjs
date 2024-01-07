@@ -18,30 +18,44 @@ import { Button } from "../ui/button";
 import { eventFormSchema } from "@/lib/validator";
 import { eventDefaultValues } from "@/constants";
 import Dropdown from "./dropdown";
-import  { FileUploader } from "./FileUploader";
+import { FileUploader } from "./FileUploader";
 import { useState } from "react";
 import Image from "next/image";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; // have to import this for styling of datepicker
 import { Checkbox } from "../ui/checkbox";
-
-
+import { useUploadThing } from "@/lib/uploadthing"
+import { useRouter }from "next/navigation";
+import { IEvent } from "@/lib/database/models/event.model"; 
+import { createEvent } from "@/lib/action/event.actions";
 
 type EventFormProps={
     userId: string,
-    type: "Create" | "Update"
+    type: "Create" | "Update",
+    event?: IEvent,
+    eventId?: string
 }
 
 // form schema
 
 
-const EventForm = ({ userId, type}: EventFormProps) => {
+const EventForm = ({ userId, type, event, eventId}: EventFormProps) => {
 const [files, setFiles] = useState<File[]>([]);
 
   // initial values
-const initialValues = eventDefaultValues;
+  const initialValues = event && type === 'Update' 
+  ? { 
+    ...event, 
+    startDateTime: new Date(event.startDateTime), 
+    endDateTime: new Date(event.endDateTime) 
+  }
+  : eventDefaultValues;
+  // for uploading the image
+const { startUpload } = useUploadThing('imageUploader')
 
+//Router for Navigation
 
+const router = useRouter();
   // defining form
    // 1. Define your form.
    const form = useForm<z.infer<typeof eventFormSchema>>({
@@ -50,10 +64,36 @@ const initialValues = eventDefaultValues;
   })
 
   // function to submit the form
-  function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+ async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+  let uploadedImageUrl = values.imageUrl;
+
+  if(files.length > 0) {
+    const uploadedImages = await startUpload(files)
+
+    if(!uploadedImages) {
+      return
+    }
+
+    uploadedImageUrl = uploadedImages[0].url
+  }
+
+  if(type === 'Create') {
+    try {
+      const newEvent = await createEvent({
+        event: { ...values, imageUrl: uploadedImageUrl },
+        userId,
+        path: '/profile'
+      })
+
+      if(newEvent) {
+        form.reset();
+        router.push(`/events/${newEvent._id}`)
+        }
+      } catch (error) {
+       console.log(error);
+    }
+  }
+    
   }
   return (
     <Form {...form}>

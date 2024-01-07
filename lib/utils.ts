@@ -1,5 +1,3 @@
-// utility function to use throughout the application 
-
 import { type ClassValue, clsx } from 'clsx'
 
 import { twMerge } from 'tailwind-merge'
@@ -76,7 +74,7 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams) {
 export function removeKeysFromQuery({ params, keysToRemove }: RemoveUrlQueryParams) {
   const currentUrl = qs.parse(params)
 
-  keysToRemove.forEach(key => {
+  keysToRemove.forEach((key: string | number) => {
     delete currentUrl[key]
   })
 
