@@ -8,7 +8,7 @@
 // import { NextResponse } from "next/server";
 // import { error } from "console";
 // import path from "path";
-'use server'
+ 
 
 import { revalidatePath } from 'next/cache'
 
